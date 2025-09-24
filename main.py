@@ -864,7 +864,7 @@ async def send_reklama_post(user_id, code):
         await bot.send_message(user_id, "❌ Reklama postni yuborib bo‘lmadi.")
 
 
-# === Yuklab olish tugmasi bosilganda ===
+ # === Yuklab olish tugmasi bosilganda ===
 @dp.callback_query_handler(lambda c: c.data.startswith("download:"))
 async def download_all(callback: types.CallbackQuery):
     code = callback.data.split(":")[1]
@@ -877,6 +877,9 @@ async def download_all(callback: types.CallbackQuery):
 
     await callback.answer("⏳ Yuklanmoqda, biroz kuting...")
 
+    # Agar admin bo'lmasa protect_content=True bo'ladi
+    protect_flag = False if callback.from_user.id in ADMINS else True
+
     # Hamma qismlarni ketma-ket yuborish
     for i in range(post_count):
         try:
@@ -884,7 +887,7 @@ async def download_all(callback: types.CallbackQuery):
                 callback.from_user.id,
                 channel,
                 base_id + i,
-                protect_content=True  # forward/save qilishni taqiqlaydi
+                protect_content=protect_flag
             )
             await asyncio.sleep(0.5)  # flood control uchun sekin yuborish
         except:
