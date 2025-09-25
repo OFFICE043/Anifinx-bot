@@ -36,9 +36,9 @@ keep_alive()
 
 API_TOKEN = os.getenv("API_TOKEN")
 CHANNELS = ["-1002944875872", "-1002362274987"]
-LINKS = ["https://t.me/+sr_HEST2Mfc4YTdi", "https://t.me/Anilordtv]
+LINKS = ["https://t.me/+sr_HEST2Mfc4YTdi","https://t.me/Anilordtv"]
 MAIN_CHANNELS = ["-1002944875872", "-1002362274987"]
-MAIN_LINKS = ["https://t.me/+sr_HEST2Mfc4YTdi", "https://t.me/Anilordtv"]
+MAIN_LINKS = ["https://t.me/+sr_HEST2Mfc4YTdi","https://t.me/Anilordtv"]
 BOT_USERNAME = os.getenv("BOT_USERNAME")
 
 bot = Bot(token=API_TOKEN)
