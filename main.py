@@ -16,7 +16,14 @@ from aiogram.types import (
 from aiogram.utils import executor
 from keep_alive import keep_alive
 
-from database import init_db, add_user, get_user_status, add_admin, remove_admin, get_all_admins_from_db
+# database.py файлынан БАРЛЫҚ қажетті функцияларды импорттаймыз
+from database import (
+    init_db, add_user, get_user_count, get_today_users, get_all_user_ids,
+    get_user_status, add_admin, remove_admin, get_all_admins_from_db,
+    add_kino_code, get_kino_by_code, get_all_codes, delete_kino_code,
+    get_code_stat, increment_stat, update_anime_code
+)
+
 
 # === YUKLAMALAR ===
 load_dotenv()
