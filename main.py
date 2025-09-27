@@ -16,8 +16,7 @@ from aiogram.types import (
 from aiogram.utils import executor
 from keep_alive import keep_alive
 
-# database импорттарын біздің жаңа файлға сәйкестендіреміз
-from database import init_db, add_admin, get_all_admins_from_db, add_user, get_user_count, add_kino_code, get_kino_by_code, get_all_codes, delete_kino_code, get_code_stat, increment_stat, get_all_user_ids, update_anime_code, get_today_users
+from database import init_db, add_user, get_user_status, add_admin, remove_admin, get_all_admins_from_db
 
 # === YUKLAMALAR ===
 load_dotenv()
