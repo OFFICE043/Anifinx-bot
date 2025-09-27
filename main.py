@@ -16,7 +16,7 @@ from aiogram.types import (
 from aiogram.utils import executor
 from keep_alive import keep_alive
 # database импорттарын біздің жаңа файлға сәйкестендіреміз
-from database import init_db, add_admin, get_all_admins_from_db, add_user 
+from database import (init_db, add_admin, get_all_admins_from_db, add_user 
 # ...басқа қажетті функцияларды осылай қоса береміз
     
     get_user_count,
