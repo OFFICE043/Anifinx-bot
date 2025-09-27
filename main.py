@@ -459,10 +459,13 @@ async def add_admin_process(message: types.Message, state: FSMContext):
     
     # 3. Қолданушыға базаға қосылғаны туралы хабарлама береміз
     await message.answer(f"✅ <code>{new_admin_id}</code> admin sifatida BAZAGA qo‘shildi.", parse_mode="HTML", reply_markup=control_keyboard())
-        try:
-        # "await" сөзі "try:" сөзінен бір шегініспен (әдетте 4 пробел) оңға қарай тұруы керек
+    
+    # 4. Жаңа админге жеке хабарлама жіберуге тырысу
+    try:
+        # "try" алдыңғы қатармен бір деңгейде тұруы керек
         await bot.send_message(new_admin_id, "✅ Siz botga admin sifatida qo‘shildingiz.")
     except:
+        # Егер хабарлама жіберілмесе (мысалы, бот блокта болса), қате шығармаймыз
         pass
 
 # ----------------------------------------------------
