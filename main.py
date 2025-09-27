@@ -56,6 +56,7 @@ def admin_keyboard():
     kb.add("✏️ Kodni tahrirlash", "📤 Post qilish")
     kb.add("📢 Habar yuborish", "📘 Qo‘llanma")
     kb.add("➕ Admin qo‘shish", "📡 Kanal boshqaruvi")
+    kb.add("➖ Admin o'chirish") # <<< МІНЕ, ЖАҢА ҚАТАР ҚОСЫЛДЫ
     return kb
 
 def control_keyboard():
