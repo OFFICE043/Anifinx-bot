@@ -460,9 +460,14 @@ async def add_admin_process(message: types.Message, state: FSMContext):
         await message.answer("ℹ️ Bu foydalanuvchi allaqachon admin.", reply_markup=control_keyboard())
         return
 
+    # 1. Админді алдымен БАЗАҒА қосамыз
+    add_admin(new_admin_id)
+    
+    # 2. Содан кейін ғана уақытша жадтағы тізімді жаңартамыз
     ADMINS.add(new_admin_id)
-    await message.answer(f"✅ <code>{new_admin_id}</code> admin sifatida qo‘shildi.", parse_mode="HTML", reply_markup=control_keyboard())
-    try:
+    
+    # 3. Қолданушыға базаға қосылғаны туралы хабарлама береміз
+    await message.answer(f"✅ <code>{new_admin_id}</code> admin sifatida BAZAGA qo‘shildi.", parse_mode="HTML", reply_markup=control_keyboard())
         await bot.send_message(new_admin_id, "✅ Siz botga admin sifatida qo‘shildingiz.")
     except:
         pass
