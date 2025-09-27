@@ -98,24 +98,4 @@ def add_kino_code(code, channel, message_id, post_count, title):
     execute_query("INSERT INTO stats (code) VALUES (%s) ON CONFLICT DO NOTHING", (code,))
 
 def get_kino_by_code(code):
-    row = execute_query("SELECT code, channel, message_id, post_count, title FROM kino_codes WHERE code = %s", (code,), fetch="one")
-    return dict(zip(['code', 'channel', 'message_id', 'post_count', 'title'], row)) if row else None
-
-def get_all_codes():
-    rows = execute_query("SELECT code, title FROM kino_codes", fetch="all")
-    return [dict(zip(['code', 'title'], row)) for row in rows] if rows else []
-
-def delete_kino_code(code):
-    execute_query("DELETE FROM stats WHERE code = %s", (code,))
-    execute_query("DELETE FROM kino_codes WHERE code = %s", (code,))
-
-def get_code_stat(code):
-    row = execute_query("SELECT searched, viewed FROM stats WHERE code = %s", (code,), fetch="one")
-    return dict(zip(['searched', 'viewed'], row)) if row else None
-
-def increment_stat(code, field):
-    if field not in ("searched", "viewed"): return
-    execute_query(f"UPDATE stats SET {field} = {field} + 1 WHERE code = %s", (code,))
-
-def update_anime_code(old_code, new_code, new_title):
-    execute_query("UPDATE kino_codes SET code = %s, title = %s WHERE code = %s", (new_code, new_title, old_code))
+    row = execute_query("SELECT code, channel, message_id, post
