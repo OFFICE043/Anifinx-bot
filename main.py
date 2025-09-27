@@ -894,8 +894,23 @@ async def download_all(callback: types.CallbackQuery):
 
 # === START ===
 async def on_startup(dp):
-    await init_db()
-    print("✅ PostgreSQL bazaga ulandi!")
+    init_db() # Біздің жаңа database.py файлындағы функция
+    print("✅ PostgreSQL базасымен байланыс орнатылды.")
+    
+    # Бас админдерді config.py файлынан жүктейміз (егер ол файл болса)
+    try:
+        from config import HEAD_ADMINS
+        if HEAD_ADMINS:
+            ADMINS.update(HEAD_ADMINS)
+    except ImportError:
+        print("config.py файлы табылмады, бас админдерді .env-тен оқыңыз")
+
+    # Қарапайым админдерді БАЗАДАН жүктейміз
+    db_admins = get_all_admins_from_db()
+    if db_admins:
+        ADMINS.update(db_admins)
+    
+    print(f"Админдер тізімі жүктелді: {ADMINS}")
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
