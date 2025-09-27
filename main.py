@@ -45,8 +45,7 @@ bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
-ADMINS = {7483732504, 5959511392}
-
+ADMINS = set() # Басында бос болады, төменде базадан және конфигтен толтырамыз
 # === KEYBOARDS ===
 def admin_keyboard():
     """Asosiy admin paneli — 'Boshqarish' tugmasi MAVJUD EMAS"""
