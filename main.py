@@ -474,6 +474,55 @@ async def add_admin_process(message: types.Message, state: FSMContext):
     except:
         pass
 
+# ----------------------------------------------------
+# --- Adminni o'chirish (1-бөлім: Процесті бастау) ---
+# ----------------------------------------------------
+@dp.message_handler(lambda m: m.text == "➖ Admin o'chirish", user_id=ADMINS)
+async def delete_admin_start(message: types.Message):
+    await AdminStates.waiting_for_admin_id_to_delete.set()
+    await message.answer("🗑 O'chirmoqchi bo'lgan adminning Telegram ID raqamini yuboring.", reply_markup=control_keyboard())
+
+
+# ----------------------------------------------------
+# --- Adminni o'chirish (2-бөлім: ID-ды өңдеу) ---
+# ----------------------------------------------------
+@dp.message_handler(state=AdminStates.waiting_for_admin_id_to_delete, user_id=ADMINS)
+async def delete_admin_process(message: types.Message, state: FSMContext):
+    # Егер админ "Boshqarish" кнопкасын басса, процесті тоқтату
+    if message.text == "📡 Boshqarish":
+        await state.finish()
+        await send_admin_panel(message)
+        return
+
+    await state.finish() # Күту режимін аяқтау
+    text = message.text.strip()
+
+    # Жіберілген ID-ның дұрыстығын тексеру
+    if not text.isdigit():
+        await message.answer("❗ Faqat raqam yuboring (Telegram user ID).", reply_markup=control_keyboard())
+        return
+
+    admin_id_to_delete = int(text)
+
+    # Бас админді өшіріп тастаудан сақтану (қауіпсіздік)
+    try:
+        from config import HEAD_ADMINS
+        if admin_id_to_delete in HEAD_ADMINS:
+            await message.answer("❌ Bosh adminni o'chirib bo'lmaydi!", reply_markup=admin_keyboard())
+            return
+    except ImportError:
+        pass # Егер config.py болмаса, бұл тексеруді өткізіп жібереміз
+
+    # Админнің тізімде бар-жоғын тексеру
+    if admin_id_to_delete not in ADMINS:
+        await message.answer("ℹ️ Bunday admin mavjud emas.", reply_markup=control_keyboard())
+        return
+
+    # Админді базадан және уақытша жадтан өшіру
+    remove_admin(admin_id_to_delete)
+    ADMINS.remove(admin_id_to_delete)
+    
+    await message.answer(f"✅ <code>{admin_id_to_delete}</code> adminlar ro'yxatidan o'chirildi.", parse_mode="HTML", reply_markup=admin_keyboard())
 
 # === Kod statistikasi ===
 @dp.message_handler(lambda m: m.text == "📈 Kod statistikasi", user_id=ADMINS)
