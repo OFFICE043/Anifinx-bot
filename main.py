@@ -73,6 +73,7 @@ class AdminStates(StatesGroup):
     waiting_for_stat_code = State()
     waiting_for_broadcast_data = State()
     waiting_for_admin_id = State()
+    waiting_for_admin_id_to_delete = State() # <<< МІНЕ, ЖАҢА КҮЙ ҚОСЫЛДЫ
 
 class AdminReplyStates(StatesGroup):
     waiting_for_reply_message = State()
